@@ -1,4 +1,6 @@
 #include <iostream>
+#include "utils/login/login.hpp"
+#include "utils/createAccount/createAccount.hpp"
 using namespace std;
 
 int main()
@@ -7,34 +9,24 @@ int main()
 
     while (true)
     {
-        cout << "Do you have an account ?" << endl;
-        cout << "Press 1 for Yes, 2 for No: ";
+        cout << "╔═══════════════════════════════════════════╗\n";
+        cout << "║           Welcome to Le Fang ATM          ║\n";
+        cout << "╚═══════════════════════════════════════════╝\n\n";
+        cout << "Do you have an account?\n";
+        cout << "  ➤ Press 1 for Yes\n";
+        cout << "  ➤ Press 2 for No\n";
+        cout << "\nEnter your choice: ";
+
         short choice;
         cin >> choice;
 
         switch (choice)
         {
         case 1:
-            cout << "Welcome to Le Fang ATM Service" << endl;
-            cout << "Please enter your PIN (4 digits): ";
-            short pin;
-            cin >> pin;
-            // check pin
-            cout << pin;
+            LoginUser();
             break;
         case 2:
-            cout << "Please create an account with us" << endl;
-            short createAcc;
-            cin >> createAcc;
-            switch (createAcc)
-            {
-            case 1:
-                cout << "Account created successfully" << endl;
-                break;
-            case 2:
-                cout << "Thank you for visiting Le Fang ATM Service";
-                break;
-            }
+            createAccount();
             break;
         };
         break;

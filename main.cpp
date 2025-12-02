@@ -9,16 +9,17 @@ int main()
 
     while (true)
     {
-        cout << "╔═══════════════════════════════════════════╗\n";
-        cout << "║           Welcome to Le Fang ATM          ║\n";
-        cout << "╚═══════════════════════════════════════════╝\n\n";
+        cout << "=============================================\n";
+        cout << "|           Welcome to Le Fang ATM          |\n";
+        cout << "=============================================\n\n";
         cout << "Do you have an account?\n";
-        cout << "  ➤ Press 1 for Yes\n";
-        cout << "  ➤ Press 2 for No\n";
+        cout << " => Press 1 for Yes\n";
+        cout << " => Press 2 for No\n";
         cout << "\nEnter your choice: ";
 
         short choice;
         cin >> choice;
+        system("cls");
 
         switch (choice)
         {
@@ -28,8 +29,9 @@ int main()
         case 2:
             createAccount();
             break;
-        };
+        }
         break;
-    };
+    }
+
     return 0;
-};
+}

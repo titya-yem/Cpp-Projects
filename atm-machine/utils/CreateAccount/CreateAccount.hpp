@@ -3,6 +3,11 @@
 
 class CreateAccount
 {
+public:
+    void createAccountMenu();
+
+private:
+    short createAccOption;
 };
 
 #endif

@@ -1,33 +1,44 @@
 #include <iostream>
+#include "utils/Login/Login.hpp"
+#include "utils/CreateAccount/CreateAccount.hpp"
 
 using namespace std;
 
 int main()
 {
     system("cls");
-
-    cout << "\t========================================\n";
-    cout << "\t|        Welcome to Le Fang ATM        |\n";
-    cout << "\t========================================\n\n";
-    cout << " \tDo you have accounts or not ? \n";
-    cout << " \t1) Yes (Login)\n";
-    cout << " \t2) No (Create Account)\n";
-    cout << " \t3) Exit ATM\n";
-    cout << " \tPlease select: ";
-
-    short choice;
-    cin >> choice;
-    switch (choice)
+    while (true)
     {
-    case 1:
-        cout << "Login";
-        break;
-    case 2:
-        cout << "Create Account";
-        break;
-    case 3:
-        cout << "Thank you for using Le Fang ATM. Goodbye !";
-        exit(0);
+        cout << "========================================\n";
+        cout << "|        Welcome to Le Fang ATM        |\n";
+        cout << "========================================\n\n";
+        cout << " Do you have accounts or not ?\n";
+        cout << " 1) Yes (Login)\n";
+        cout << " 2) No (Create Account)\n";
+        cout << " 3) Exit ATM\n";
+        cout << " Please select: ";
+
+        short choice;
+        cin >> choice;
+        switch (choice)
+        {
+        case 1:
+        {
+            Login loginAccount;
+            loginAccount.loginAccount();
+            break;
+        }
+        case 2:
+            CreateAccount CreateAccount;
+            CreateAccount.createAccountMenu();
+            break;
+        case 3:
+            cout << "Thank you for using Le Fang ATM. Goodbye !";
+            exit(0);
+        default:
+            system("cls");
+            cout << "Please Select options 1-3 only.\n";
+        }
     }
 
     return 0;

@@ -9,14 +9,14 @@ int main()
     system("cls");
     while (true)
     {
-        cout << "========================================\n";
-        cout << "|        Welcome to Le Fang ATM        |\n";
-        cout << "========================================\n\n";
-        cout << " Do you have accounts or not ?\n";
-        cout << " 1) Yes (Login)\n";
-        cout << " 2) No (Create Account)\n";
-        cout << " 3) Exit ATM\n";
-        cout << " Please select: ";
+        cout << "===============================================\n";
+        cout << "|            Welcome to Le Fang ATM           |\n";
+        cout << "===============================================\n\n";
+        cout << "\tDo you have accounts or not ?\n";
+        cout << "\t1) Yes (Login)\n";
+        cout << "\t2) No (Create Account)\n";
+        cout << "\t3) Exit ATM\n";
+        cout << "\n\tPlease select: ";
 
         short choice;
         cin >> choice;

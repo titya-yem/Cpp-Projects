@@ -7,14 +7,10 @@ using namespace std;
 class Account
 {
 public:
-    void cardType();
-    void setPin(const int &pin);
+    void mainMenu();
 
 private:
-    string creditCard;
-    string debitCard;
-    string MasterCard;
-    int pin;
+    short menuOption;
 };
 
 #endif

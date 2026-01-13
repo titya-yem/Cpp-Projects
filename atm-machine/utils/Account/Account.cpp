@@ -1,90 +1,68 @@
 #include "Account.hpp"
-#include <iostream>
-#include <limits>
-#include <stdexcept>
 
-using namespace std;
-
-void Account::cardType()
+void Account::mainMenu()
 {
+    system("cls");
     // Allow user to select card type and enter PIN again and again
     while (true)
     {
-        cout << "=============================================\n";
-        cout << "|           Welcome to Le Fang ATM          |\n";
-        cout << "=============================================\n\n";
-        cout << "Please select your account type: \n";
-        cout << " 1) Credit Card\n";
-        cout << " 2) Debit Card\n";
-        cout << " 3) Master Card\n";
-        cout << " 4) Exit ATM\n";
-        cout << "\nEnter your choice: ";
+        // if possible fetch userName from db and shows here.
+        cout << "===============================================\n";
+        cout << "|            Welcome to Le Fang ATM           |\n";
+        cout << "===============================================\n\n";
+        cout << "\tPlease select your options: \n";
+        cout << "\t1) Account" << "\t2) Balance" << "\t3) Transaction\n"
+             << "\t4) Payment" << "\t5) Receipt" << "\t6) Exit\n";
+        cout << "\n\tEnter your choice: ";
 
-        short cardChoice;
-        cin >> cardChoice;
+        cin >> menuOption;
         system("cls");
 
-        switch (cardChoice)
+        switch (menuOption)
         {
         case 1:
-            cout << "=============================================\n";
-            cout << "|           Welcome to Le Fang ATM          |\n";
-            cout << "=============================================\n\n";
-            cout << "You have selected Credit Card. \n";
-            cout << "\nEnter your PIN (4 digits): ";
+            cout << "===============================================\n";
+            cout << "|            Welcome to Le Fang ATM           |\n";
+            cout << "===============================================\n\n";
+            cout << "\tYou have selected Account. \n";
+            cout << "\n\tAccount";
 
-            // Check Pin input validity
-            cin >> pin;
-            if (cin.fail())
-            {
-                cin.clear();
-                cin.ignore(numeric_limits<int>::max(), '\n');
-                throw invalid_argument("Invalid PIN format. Please enter numberic digits only.");
-            }
-            // if pin correct, proceed to transaction menu
             break;
         case 2:
-            cout << "=============================================\n";
-            cout << "|           Welcome to Le Fang ATM          |\n";
-            cout << "=============================================\n\n";
-            cout << "You have selected Dedit Card. \n";
-            cout << "\nEnter your PIN (4 digits): ";
+            cout << "===============================================\n";
+            cout << "|            Welcome to Le Fang ATM           |\n";
+            cout << "===============================================\n\n";
+            cout << "\tYou have selected Balance. \n";
+            cout << "\n\nBalance: ";
 
-            // Check Pin input validity
-            cin >> pin;
-            if (cin.fail())
-            {
-                cin.clear();
-                cin.ignore(numeric_limits<int>::max(), '\n');
-                throw invalid_argument("Invalid PIN format. Please enter numberic digits only.");
-            }
-            // if pin correct, proceed to transaction menu
             break;
         case 3:
             cout << "=============================================\n";
             cout << "|           Welcome to Le Fang ATM          |\n";
             cout << "=============================================\n\n";
-            cout << "You have selected Master Card. \n";
-            cout << "\nEnter your PIN (4 digits): ";
+            cout << "\tYou have selected Transaction. \n";
+            cout << "\n\n: ";
 
-            // Check Pin input validity
-            cin >> pin;
-            if (cin.fail())
-            {
-                cin.clear();
-                cin.ignore(numeric_limits<int>::max(), '\n');
-                throw invalid_argument("Invalid PIN format. Please enter numberic digits only.");
-            }
-            // if pin correct, proceed to transaction menu
             break;
         case 4:
+            cout << "=============================================\n";
+            cout << "|           Welcome to Le Fang ATM          |\n";
+            cout << "=============================================\n\n";
+            cout << "\tYou have selected Payment. \n";
+            cout << "\n\n: Payment";
+
+            break;
+        case 5:
+            cout << "=============================================\n";
+            cout << "|           Welcome to Le Fang ATM          |\n";
+            cout << "=============================================\n\n";
+            cout << "\tYou have selected Receipt. \n";
+            cout << "\n\n: Receipt";
+
+            break;
+        case 6:
             cout << "Thank you for using Le Fang ATM. Goodbye!\n";
             exit(0);
         }
     }
-}
-
-void Account::setPin(const int &pin)
-{
-    this->pin = pin;
 }

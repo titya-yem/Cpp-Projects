@@ -1,21 +1,22 @@
 #ifndef UTILS_LOGIN_LOGIN_HPP
 #define UTILS_LOGIN_LOGIN_HPP
 #include <string>
+#include "../Screen/Screen.hpp"
+#include "../Account/Account.hpp"
 
 using namespace std;
 
-class Login
+class Login : public Account
 {
 public:
-    void loginAccount();
+    Screen loginAccount();
     void setPin(const short &pin);
+    void invalidPINMessage() const;
 
 private:
-    string creditCard;
-    string debitCard;
-    string MasterCard;
     short pin;
-    short cardChoice;
+    short option;
+    Screen current = Screen::LOGIN;
 };
 
 #endif

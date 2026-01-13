@@ -8,6 +8,7 @@ class Account
 {
 public:
     void mainMenu();
+    void waitForUser();
 
 private:
     short menuOption;

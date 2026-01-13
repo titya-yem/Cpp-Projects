@@ -1,6 +1,0 @@
-#ifndef UTILS_CREATEACCOUNT_SAVEACCOUNT_HPP
-#define UTILS_CREATEACCOUNT_SAVEACCOUNT_HPP
-
-void saveAccount();
-
-#endif

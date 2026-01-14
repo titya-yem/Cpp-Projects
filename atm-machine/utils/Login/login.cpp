@@ -43,11 +43,11 @@ Screen Login::loginAccount()
         if (pin == 1234)
         {
             // return Screen::ACCOUNT_MENU;
+            waitForUser();
             cout << "You have selected 3";
         }
 
         invalidPINMessage();
-        incorrectPIN();
 
         break;
     case 2:
@@ -63,11 +63,11 @@ Screen Login::loginAccount()
         if (pin == 1234)
         {
             // return Screen::ACCOUNT_MENU;
+            waitForUser();
             cout << "You have selected 3";
         }
 
         invalidPINMessage();
-        incorrectPIN();
 
         break;
     case 3:
@@ -83,17 +83,17 @@ Screen Login::loginAccount()
         if (pin == 1234)
         {
             // return Screen::ACCOUNT_MENU;
+            waitForUser();
             cout << "You have selected 3";
         }
 
         invalidPINMessage();
-        incorrectPIN();
 
         break;
     case 4:
         system("cls");
         cout << "Thank you for using Le Fang ATM. Goodbye!\n";
-        return Screen::EXIT;
+        exit(0);
     default:
         cout << "Please Select options 1-4 only.\n";
         waitForUser();

@@ -74,6 +74,5 @@ void Account::waitForUser()
 {
     // for waiting user such as invalid or retry
     cout << "Press Enter To Continue....";
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     cin.get();
 }

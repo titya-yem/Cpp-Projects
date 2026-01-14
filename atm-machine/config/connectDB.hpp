@@ -1,4 +1,0 @@
-#ifndef CONFIG_CONNECTDB_HPP
-#define CONFIG_CONNECTDB_HPP
-
-#endif

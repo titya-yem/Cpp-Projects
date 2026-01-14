@@ -15,57 +15,46 @@ Screen Account::mainMenu()
 
     cin >> menuOption;
     system("cls");
-
     switch (menuOption)
     {
     case 1:
-        system("cls");
         cout << "===============================================\n";
         cout << "|            Welcome to Le Fang ATM           |\n";
         cout << "===============================================\n\n";
         cout << "\tYou have selected Account. \n";
         cout << "\n\tShow account history";
-        waitForUser();
 
         break;
     case 2:
-        system("cls");
         cout << "===============================================\n";
         cout << "|            Welcome to Le Fang ATM           |\n";
         cout << "===============================================\n\n";
         cout << "\tYou have selected Balance. \n";
         cout << "\nBalance: ";
-        waitForUser();
 
         break;
     case 3:
-        system("cls");
         cout << "=============================================\n";
         cout << "|           Welcome to Le Fang ATM          |\n";
         cout << "=============================================\n\n";
         cout << "\tYou have selected Transaction. \n";
         cout << "\nTransaction: ";
-        waitForUser();
 
         break;
     case 4:
-        system("cls");
         cout << "=============================================\n";
         cout << "|           Welcome to Le Fang ATM          |\n";
         cout << "=============================================\n\n";
         cout << "\tYou have selected Payment. \n";
         cout << "\nPayment: ";
-        waitForUser();
 
         break;
     case 5:
-        system("cls");
         cout << "=============================================\n";
         cout << "|           Welcome to Le Fang ATM          |\n";
         cout << "=============================================\n\n";
         cout << "\tYou have selected Receipt. \n";
         cout << "\nReceipt: ";
-        waitForUser();
 
         break;
     case 6:
@@ -77,6 +66,7 @@ Screen Account::mainMenu()
         return Screen::ACCOUNT_MENU;
     }
 
+    waitForUser();
     return Screen::ACCOUNT_MENU;
 }
 

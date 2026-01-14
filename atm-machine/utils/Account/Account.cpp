@@ -1,17 +1,16 @@
 #include "Account.hpp"
-#include "limits"
+#include "../Screen/Screen.hpp"
 
-void Account::mainMenu()
+Screen Account::mainMenu()
 {
     system("cls");
-    // Allow user to select card type and enter PIN again and again
-    // if possible fetch userName from db and shows here.
+    // will user inheritance when checking the same as function of each of them
     cout << "===============================================\n";
     cout << "|            Welcome to Le Fang ATM           |\n";
     cout << "===============================================\n\n";
-    cout << "\tPlease select your options: \n";
-    cout << "1) Account" << "\t2) Balance" << "\t3) Transaction\n"
-         << "4) Payment" << "\t5) Receipt" << "\t6) Exit\n";
+    cout << "\tPlease select your options to check: \n";
+    cout << " 1) Account" << "\t2) Balance" << "\t3) Transaction\n"
+         << " 4) Payment" << "\t5) Receipt" << "\t6) Exit\n";
     cout << "\nEnter your choice: ";
 
     cin >> menuOption;
@@ -26,6 +25,7 @@ void Account::mainMenu()
         cout << "===============================================\n\n";
         cout << "\tYou have selected Account. \n";
         cout << "\n\tShow account history";
+        waitForUser();
 
         break;
     case 2:
@@ -35,6 +35,7 @@ void Account::mainMenu()
         cout << "===============================================\n\n";
         cout << "\tYou have selected Balance. \n";
         cout << "\nBalance: ";
+        waitForUser();
 
         break;
     case 3:
@@ -44,6 +45,7 @@ void Account::mainMenu()
         cout << "=============================================\n\n";
         cout << "\tYou have selected Transaction. \n";
         cout << "\nTransaction: ";
+        waitForUser();
 
         break;
     case 4:
@@ -53,6 +55,7 @@ void Account::mainMenu()
         cout << "=============================================\n\n";
         cout << "\tYou have selected Payment. \n";
         cout << "\nPayment: ";
+        waitForUser();
 
         break;
     case 5:
@@ -62,12 +65,19 @@ void Account::mainMenu()
         cout << "=============================================\n\n";
         cout << "\tYou have selected Receipt. \n";
         cout << "\nReceipt: ";
+        waitForUser();
 
         break;
     case 6:
         cout << "Thank you for using Le Fang ATM. Goodbye!\n";
         exit(0);
+    default:
+        cout << "Please Select options 1-6 only.\n";
+        waitForUser();
+        return Screen::ACCOUNT_MENU;
     }
+
+    return Screen::ACCOUNT_MENU;
 }
 
 void Account::waitForUser()

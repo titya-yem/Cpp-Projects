@@ -36,7 +36,7 @@ Screen CreateAccount::createAccountMenu()
     case 4:
         system("cls");
         cout << "Thank you for visiting Le Fang ATM Service";
-        return Screen::EXIT;
+        exit(0);
     default:
         cout << "Please Select options 1-4 only.\n";
         waitForUser();

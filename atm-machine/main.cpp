@@ -10,7 +10,7 @@ using namespace std;
 int main()
 {
     system("cls");
-    Screen current = Screen::MAIN_MENU;
+    Screen currentScreen = Screen::MAIN_MENU;
 
     Login login;
     CreateAccount createAccount;
@@ -18,7 +18,7 @@ int main()
 
     while (true)
     {
-        switch (current)
+        switch (currentScreen)
         {
         case Screen::MAIN_MENU:
             system("cls");
@@ -39,17 +39,17 @@ int main()
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Please enter number 1-3 only.\n";
                 account.waitForUser();
-                current = Screen::MAIN_MENU;
+                currentScreen = Screen::MAIN_MENU;
                 break;
             }
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             if (option == 1)
-                current = Screen::LOGIN;
+                currentScreen = Screen::LOGIN;
             else if (option == 2)
-                current = Screen::CREATE_ACCOUNT_MENU;
+                currentScreen = Screen::CREATE_ACCOUNT_MENU;
             else if (option == 3)
-                current = Screen::EXIT;
+                currentScreen = Screen::EXIT;
             else
             {
                 cout << "Please Select options 1-3 only.\n";
@@ -60,12 +60,16 @@ int main()
 
         // If user pressed 1 will go to login screen
         case Screen::LOGIN:
-            current = login.loginAccount();
+            currentScreen = login.loginAccount();
+            break;
+
+        case Screen::ACCOUNT_MENU:
+            currentScreen = account.mainMenu();
             break;
 
         // If user pressed 2 will go to Create Account Menu screen
         case Screen::CREATE_ACCOUNT_MENU:
-            current = createAccount.createAccountMenu();
+            currentScreen = createAccount.createAccountMenu();
             break;
 
         // If user pressed 3 will go to Exit screen

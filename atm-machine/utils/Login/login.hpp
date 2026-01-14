@@ -11,12 +11,12 @@ class Login : public Account
 public:
     Screen loginAccount();
     void setPin(const short &pin);
-    void invalidPINMessage() const;
+    bool invalidPINMessage() const;
 
 private:
     short pin;
     short option;
-    Screen current = Screen::LOGIN;
+    Screen currentScreen = Screen::LOGIN;
 };
 
 #endif

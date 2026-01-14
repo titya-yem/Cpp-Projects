@@ -20,12 +20,6 @@ Screen Login::loginAccount()
     cout << "\t4) Exit ATM\n";
     cout << "\n\tEnter your choice: ";
 
-    // will change later when i finished
-    // current = (option == 1)   ? Screen::LOGIN
-    //           : (option == 2) ? Screen::LOGIN
-    //           : (option == 3) ? Screen::LOGIN
-    //           : (option == 4) ? Screen::EXIT
-    //                           : Screen::LOGIN;
     cin >> option;
     switch (option)
     {
@@ -39,17 +33,19 @@ Screen Login::loginAccount()
         cout << "\n\tEnter your PIN (4 digits): ";
 
         cin >> pin;
-        // main menu
-        if (pin == 1234)
+        if (invalidPINMessage())
         {
-            // return Screen::ACCOUNT_MENU;
             waitForUser();
-            cout << "You have selected 3";
+            return Screen::LOGIN;
         }
 
-        invalidPINMessage();
+        // main menu
+        if (pin == 1234)
+            return Screen::ACCOUNT_MENU;
 
-        break;
+        cout << "Incorrect PIN, Please try again. \n";
+        waitForUser();
+        return Screen::LOGIN;
     case 2:
         system("cls");
         cout << "===============================================\n";
@@ -59,17 +55,19 @@ Screen Login::loginAccount()
         cout << "\n\tEnter your PIN (4 digits): ";
 
         cin >> pin;
-        // main menu
-        if (pin == 1234)
+        if (invalidPINMessage())
         {
-            // return Screen::ACCOUNT_MENU;
             waitForUser();
-            cout << "You have selected 3";
+            return Screen::LOGIN;
         }
 
-        invalidPINMessage();
+        // main menu
+        if (pin == 1234)
+            return Screen::ACCOUNT_MENU;
 
-        break;
+        cout << "Incorrect PIN, Please try again. \n";
+        waitForUser();
+        return Screen::LOGIN;
     case 3:
         system("cls");
         cout << "=============================================\n";
@@ -79,17 +77,19 @@ Screen Login::loginAccount()
         cout << "\n\tEnter your PIN (4 digits): ";
 
         cin >> pin;
-        // main menu
-        if (pin == 1234)
+        if (invalidPINMessage())
         {
-            // return Screen::ACCOUNT_MENU;
             waitForUser();
-            cout << "You have selected 3";
+            return Screen::LOGIN;
         }
 
-        invalidPINMessage();
+        // main menu
+        if (pin == 1234)
+            return Screen::ACCOUNT_MENU;
 
-        break;
+        cout << "Incorrect PIN, Please try again. \n";
+        waitForUser();
+        return Screen::LOGIN;
     case 4:
         system("cls");
         cout << "Thank you for using Le Fang ATM. Goodbye!\n";
@@ -110,13 +110,14 @@ void Login::setPin(const short &pin)
     this->pin = pin;
 }
 
-void Login::invalidPINMessage() const
+bool Login::invalidPINMessage() const
 {
     // if input is not number it will clear and throw error;
     if (cin.fail())
     {
         cin.clear();
         cin.ignore(numeric_limits<short>::max(), '\n');
-        throw invalid_argument("Invalid PIN format. Please enter numberic digits only.");
+        return true;
     }
+    return false;
 }

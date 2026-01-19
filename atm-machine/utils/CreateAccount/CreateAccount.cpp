@@ -37,7 +37,7 @@ Screen CreateAccount::createAccountMenu()
              << "==============================================\n";
         cout << "Please fill in the required fills.\n\n";
 
-        cout << "Enter your user name: ";
+        cout << "Enter your username: ";
         getline(cin, userName);
 
         cout << "Enter your PIN (4 digits): ";
@@ -55,12 +55,14 @@ Screen CreateAccount::createAccountMenu()
         if (!createAccount(userName, pin))
         {
             cout << "Account creation failed. User name may exist.\n";
-            // Direct to Login screen after successfully created
-            return Screen::LOGIN;
+            // if user name exist or fail it will back to create account menu
+            return Screen::CREATE_ACCOUNT_MENU;
         }
 
+        // Direct to Login screen after successfully created
         cout << "Accout created successfully.\n";
-        return Screen::ACCOUNT_MENU;
+        waitForUser();
+        return Screen::LOGIN;
 
     case 2:
         cout << "Go back to main menu";
@@ -101,7 +103,7 @@ bool CreateAccount::isValidPIN(const string &pin)
 // Insert data into db
 bool CreateAccount::createAccount(const string &userName, const string &pin)
 {
-    // first we open db (atm.db)
+    // first we open db (atm.db) in data directory
     if (!db.open("atm.db"))
         return false;
 

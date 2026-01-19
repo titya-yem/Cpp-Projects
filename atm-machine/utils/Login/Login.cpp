@@ -2,7 +2,9 @@
 #include <iostream>
 #include <limits>
 #include <stdexcept>
+#include "../../sqlite/sqlite3.h"
 #include "../Screen/Screen.hpp"
+#include "../../config/Database.hpp"
 
 using namespace std;
 
@@ -13,111 +15,106 @@ Screen Login::loginAccount()
     cout << "===============================================\n";
     cout << "|            Welcome to Le Fang ATM           |\n";
     cout << "===============================================\n\n";
-    cout << "\tPlease select your account type: \n";
-    cout << "\t1) Credit Card\n";
-    cout << "\t2) Debit Card\n";
-    cout << "\t3) Master Card\n";
-    cout << "\t4) Exit ATM\n";
+    cout << "\tPlease select your option: \n";
+    cout << "\t1) Login (insert card)\n";
+    cout << "\t2) Go back\n";
+    cout << "\t3) Exit ATM\n";
     cout << "\n\tEnter your choice: ";
 
+    // validate option
     cin >> option;
+    inputValidation("1-3", Screen::LOGIN);
     switch (option)
     {
     case 1:
+    {
         system("cls");
-        // if possible, fetch userName and print it to the terminal.
         cout << "===============================================\n";
-        cout << "|            Welcome to Le Fang ATM           |\n";
+        cout << "|                  User Login                 |\n";
         cout << "===============================================\n\n";
-        cout << "\tYou have selected Credit Card. \n";
-        cout << "\n\tEnter your PIN (4 digits): ";
 
-        cin >> pin;
-        if (invalidPINMessage())
+        cout << "Please enter your user name: ";
+        getline(cin, userName);
+
+        // validate pin
+        cout << "Please enter your PIN: ";
+        getline(cin, pin);
+        pinValidation(Screen::LOGIN);
+
+        // open database
+        Database db;
+        if (!db.open("atm.db"))
         {
+            cout << "Database error. \n";
             waitForUser();
             return Screen::LOGIN;
         }
 
-        // main menu
-        if (pin == 1234)
-            return Screen::ACCOUNT_MENU;
+        // SQL code (does a row exist with this username AND this pin or not ?)
+        const char *sql =
+            "SELECT id FROM Account WHERE username = ? AND pin = ?;";
 
-        cout << "Incorrect PIN, Please try again. \n";
-        waitForUser();
-        return Screen::LOGIN;
+        sqlite3_stmt *stmt;
+        sqlite3 *conn = db.getDB();
+
+        // Compile SQL into executable form
+        if (sqlite3_prepare_v2(conn, sql, -1, &stmt, nullptr) != SQLITE_OK)
+        {
+            cout << "SQL prepare failed. \n";
+            db.close();
+            waitForUser();
+            return Screen::LOGIN;
+        }
+
+        // Bind user input (replace ? placeholder safely)
+        sqlite3_bind_text(stmt, 1, userName.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 2, pin.c_str(), -1, SQLITE_STATIC);
+
+        // Execute query
+        bool loginSucess = false;
+
+        // sqlite3_step runs the SQL
+        // If it finds a row -> (SQLITE_ROW)
+        // If not -> SQLITE_DONE
+        if (sqlite3_step(stmt) == SQLITE_ROW)
+        {
+            loginSucess = true;
+        }
+
+        // cleanup (Very important to cleanup)
+        sqlite3_finalize(stmt);
+        db.close();
+
+        // Decide result if found or not
+        if (loginSucess)
+        {
+            cout << "Login successful. \n";
+            waitForUser();
+            return Screen::ACCOUNT_MENU;
+        }
+        else
+        {
+            cout << "Invalid username or password. \n";
+            waitForUser();
+            return Screen::LOGIN;
+        }
+    }
     case 2:
-        system("cls");
-        cout << "===============================================\n";
-        cout << "|            Welcome to Le Fang ATM           |\n";
-        cout << "===============================================\n\n";
-        cout << "\tYou have selected Dedit Card. \n";
-        cout << "\n\tEnter your PIN (4 digits): ";
-
-        cin >> pin;
-        if (invalidPINMessage())
-        {
-            waitForUser();
-            return Screen::LOGIN;
-        }
-
-        // main menu
-        if (pin == 1234)
-            return Screen::ACCOUNT_MENU;
-
-        cout << "Incorrect PIN, Please try again. \n";
+        cout << "Going back to Main Menu. \n";
         waitForUser();
-        return Screen::LOGIN;
+        return Screen::MAIN_MENU;
+
     case 3:
-        system("cls");
-        cout << "=============================================\n";
-        cout << "|           Welcome to Le Fang ATM          |\n";
-        cout << "=============================================\n\n";
-        cout << "\tYou have selected Master Card. \n";
-        cout << "\n\tEnter your PIN (4 digits): ";
-
-        cin >> pin;
-        if (invalidPINMessage())
-        {
-            waitForUser();
-            return Screen::LOGIN;
-        }
-
-        // main menu
-        if (pin == 1234)
-            return Screen::ACCOUNT_MENU;
-
-        cout << "Incorrect PIN, Please try again. \n";
-        waitForUser();
-        return Screen::LOGIN;
-    case 4:
         system("cls");
         cout << "Thank you for using Le Fang ATM. Goodbye!\n";
         exit(0);
+
     default:
-        cout << "Please Select options 1-4 only.\n";
+        cout << "Please Select options 1-3 only.\n";
         waitForUser();
         return Screen::LOGIN;
     }
 
     waitForUser();
     return Screen::LOGIN;
-}
-
-void Login::setPin(const short &pin)
-{
-    // will change logic when setting creating account
-    this->pin = pin;
-}
-
-bool Login::invalidPINMessage() const
-{
-    // if input is not number it will clear and throw error;
-    if (cin.fail())
-    {
-        cin.clear();
-        cin.ignore(numeric_limits<short>::max(), '\n');
-        return true;
-    }
-    return false;
 }

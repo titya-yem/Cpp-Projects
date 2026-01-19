@@ -1,6 +1,6 @@
 #ifndef CONFIG_DATABASE_DATABASE_HPP
 #define CONFIG_DATABASE_DATABASE_HPP
-#include "../sqlite3.h"
+#include "../sqlite/sqlite3.h"
 #include <string>
 
 using namespace std;

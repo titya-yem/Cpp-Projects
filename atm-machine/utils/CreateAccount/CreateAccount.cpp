@@ -55,6 +55,7 @@ Screen CreateAccount::createAccountMenu()
         if (!createAccount(userName, pin))
         {
             cout << "Account creation failed. User name may exist.\n";
+            waitForUser();
             // if user name exist or fail it will back to create account menu
             return Screen::CREATE_ACCOUNT_MENU;
         }
@@ -65,7 +66,7 @@ Screen CreateAccount::createAccountMenu()
         return Screen::LOGIN;
 
     case 2:
-        cout << "Go back to main menu";
+        cout << "Go back to main menu \n";
         waitForUser();
         return Screen::MAIN_MENU;
 

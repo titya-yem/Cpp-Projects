@@ -11,12 +11,12 @@ public:
     Screen mainMenu();
 
     Screen inputValidation(const string &message, const Screen &screen);
-    Screen pinValidation(const Screen &screen);
+    bool pinValidation(const string &pinToCheck);
 
     void waitForUser();
+    string trim(const string &s);
 
 private:
-    string pin;
     short menuOption;
 };
 

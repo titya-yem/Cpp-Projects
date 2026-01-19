@@ -11,8 +11,6 @@ class Login : public Account
 public:
     Screen loginAccount();
 
-    void setPin(const short &pin);
-
 private:
     string userName;
     string pin;

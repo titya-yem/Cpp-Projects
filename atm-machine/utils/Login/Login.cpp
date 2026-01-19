@@ -23,7 +23,8 @@ Screen Login::loginAccount()
 
     // validate option
     cin >> option;
-    inputValidation("1-3", Screen::LOGIN);
+    if (cin.fail())
+        return inputValidation("1-3", Screen::LOGIN);
     switch (option)
     {
     case 1:
@@ -33,13 +34,20 @@ Screen Login::loginAccount()
         cout << "|                  User Login                 |\n";
         cout << "===============================================\n\n";
 
-        cout << "Please enter your user name: ";
+        cout << "Enter your username: ";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         getline(cin, userName);
 
-        // validate pin
-        cout << "Please enter your PIN: ";
+        cout << "Enter your PIN (4 digits): ";
         getline(cin, pin);
-        pinValidation(Screen::LOGIN);
+
+        // validate pin
+        if (!pinValidation(pin))
+        {
+            cout << "Invalid PIN";
+            waitForUser();
+            return Screen::LOGIN;
+        }
 
         // open database
         Database db;

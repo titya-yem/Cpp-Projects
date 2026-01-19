@@ -1,5 +1,7 @@
 #include "Account.hpp"
 #include <limits>
+#include <algorithm>
+#include <cctype>
 #include "../Screen/Screen.hpp"
 
 Screen Account::mainMenu()
@@ -85,20 +87,43 @@ Screen Account::inputValidation(const string &message, const Screen &screen)
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Invalid input, please select" << message << "numberics only.\n";
+        cout << "Invalid input, please select " << message << " numerics only.\n";
         waitForUser();
         return screen;
     }
+    return Screen::ACCOUNT_MENU;
 }
 
-Screen Account::pinValidation(const Screen &screen)
+bool Account::pinValidation(const string &pinToCheck)
 {
-    // if input is not number it will clear and throw error;
-    if (pin.length() != 4 || !isdigit(pin[0]) || !isdigit(pin[1]) ||
-        !isdigit(pin[2]) || !isdigit(pin[3]))
+    if (pinToCheck.length() != 4)
     {
-        cout << "Invalid PIN format, Please enter number only.\n";
+        cout << "Invalid PIN format, Please enter 4 digits only.\n";
         waitForUser();
-        return screen;
-    };
+        return false;
+    }
+
+    // check all digits
+    for (char c : pinToCheck)
+    {
+        if (!isdigit(c))
+        {
+            cout << "Invalid PIN format, Please enter digits only.\n";
+            waitForUser();
+            return false;
+        }
+    }
+
+    return true;
+}
+
+string Account::trim(const string &s)
+{
+    size_t start = 0;
+    while (start < s.size() && isspace(s[start]))
+        start++;
+    size_t end = s.size();
+    while (end > start && isspace(s[end - 1]))
+        end--;
+    return s.substr(start, end - start);
 }

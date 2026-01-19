@@ -1,2 +1,4 @@
 .env
-atm.db
+*.db
+*.sqlite
+*.sqlite3

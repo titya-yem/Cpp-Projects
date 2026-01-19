@@ -1,8 +1,17 @@
 #include <iostream>
 #include <iomanip>
+#include <limits>
 #include "CreateAccount.hpp"
 
 using namespace std;
+
+// set constructor default id, balance of USD and KHR = 0
+CreateAccount::CreateAccount()
+{
+    id = 0;
+    balanceUSD = 0;
+    balanceKHR = 0;
+}
 
 Screen CreateAccount::createAccountMenu()
 {
@@ -17,6 +26,8 @@ Screen CreateAccount::createAccountMenu()
     cout << "\n\tPlease select: ";
 
     cin >> createAccOption;
+    // delete leftover newline
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     switch (createAccOption)
     {
     case 1:
@@ -26,7 +37,7 @@ Screen CreateAccount::createAccountMenu()
              << "==============================================\n";
         cout << "Please fill in the required fills.\n\n";
 
-        cout << "Enter your userName: ";
+        cout << "Enter your user name: ";
         getline(cin, userName);
 
         cout << "Enter your PIN (4 digits): ";
@@ -36,26 +47,31 @@ Screen CreateAccount::createAccountMenu()
         if (!isValidPIN(pin))
         {
             cout << "Invalid PIN, Must be exactly 4 digits.\n";
+            waitForUser();
             return Screen::CREATE_ACCOUNT_MENU;
         }
 
         // Insert into DB
-        if (!insertAccount(userName, pin))
+        if (!createAccount(userName, pin))
         {
-            cout << "Account creation failed. Username may exist.\n";
-            return Screen::CREATE_ACCOUNT_MENU;
+            cout << "Account creation failed. User name may exist.\n";
+            // Direct to Login screen after successfully created
+            return Screen::LOGIN;
         }
 
         cout << "Accout created successfully.\n";
         return Screen::ACCOUNT_MENU;
+
     case 2:
         cout << "Go back to main menu";
         waitForUser();
         return Screen::MAIN_MENU;
+
     case 3:
         system("cls");
         cout << "Thank you for visiting Le Fang ATM Service";
         exit(0);
+
     default:
         cout << "Please Select options 1-3 only.\n";
         waitForUser();
@@ -82,16 +98,22 @@ bool CreateAccount::isValidPIN(const string &pin)
     return true;
 }
 
-// Insert new account into Database
-bool CreateAccount::insertAccount(const string &userName, const string &pin)
+// Insert data into db
+bool CreateAccount::createAccount(const string &userName, const string &pin)
 {
     // first we open db (atm.db)
-    db.open("atm.db");
+    if (!db.open("atm.db"))
+        return false;
 
     // declared sql varaible and write SQL logic
-    string sql =
-        "INSERT INTO accounts (userName, pin_hash) VALUE ('" + userName + "', '" + pin + "');";
+    string newAccount =
+        "INSERT INTO Account (username, pin) VALUES ('" + userName + "','" + pin + "');";
 
-    // return db execution;
-    return db.execute(sql);
+    // Save to db
+    bool success = db.execute(newAccount);
+
+    // Close db;
+    db.close();
+
+    return success;
 }

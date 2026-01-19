@@ -8,7 +8,7 @@ Screen Account::mainMenu()
     cout << "===============================================\n";
     cout << "|            Welcome to Le Fang ATM           |\n";
     cout << "===============================================\n\n";
-    cout << "\tPlease select your options to check: \n";
+    cout << "     Please select your options to check: \n";
     cout << " 1) Account" << "\t2) Balance" << "\t3) Transaction\n"
          << " 4) Payment" << "\t5) Receipt" << "\t6) Exit\n";
     cout << "\nEnter your choice: ";

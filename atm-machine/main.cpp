@@ -1,9 +1,10 @@
 #include <iostream>
 #include <limits>
+#include "Screen/Screen.hpp"
 #include "utils/Login/Login.hpp"
-#include "utils/CreateAccount/CreateAccount.hpp"
-#include "utils/Screen/Screen.hpp"
 #include "utils/Account/Account.hpp"
+#include "utils/Payment/Payment.hpp"
+#include "utils/CreateAccount/CreateAccount.hpp"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ int main()
     Login login;
     CreateAccount createAccount;
     Account account;
+    Payment Payment;
 
     while (true)
     {
@@ -60,11 +62,15 @@ int main()
 
         // If user pressed 1 will go to login screen
         case Screen::LOGIN:
-            currentScreen = login.loginAccount();
+            currentScreen = login.loginMenu();
             break;
 
         case Screen::ACCOUNT_MENU:
-            currentScreen = account.mainMenu();
+            currentScreen = account.accountMenu();
+            break;
+
+        case Screen::Payment_MENU:
+            currentScreen = Payment.paymentMenu();
             break;
 
         // If user pressed 2 will go to Create Account Menu screen

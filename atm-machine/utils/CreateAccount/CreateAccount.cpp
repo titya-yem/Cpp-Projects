@@ -26,8 +26,6 @@ Screen CreateAccount::createAccountMenu()
     cout << "\n\tPlease select: ";
 
     cin >> createAccOption;
-    // delete leftover newline
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     switch (createAccOption)
     {
     case 1:
@@ -38,6 +36,7 @@ Screen CreateAccount::createAccountMenu()
         cout << "Please fill in the required fills.\n\n";
 
         cout << "Enter your username: ";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         getline(cin, userName);
 
         cout << "Enter your PIN (4 digits): ";

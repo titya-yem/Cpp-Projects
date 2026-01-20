@@ -3,12 +3,11 @@
 #include <limits>
 #include <stdexcept>
 #include "../../sqlite/sqlite3.h"
-#include "../Screen/Screen.hpp"
 #include "../../config/Database.hpp"
 
 using namespace std;
 
-Screen Login::loginAccount()
+Screen Login::loginMenu()
 {
     system("cls");
     // Allow user to select card type and enter PIN again and again
@@ -44,7 +43,7 @@ Screen Login::loginAccount()
         // validate pin
         if (!pinValidation(pin))
         {
-            cout << "Invalid PIN";
+            cout << "Invalid PIN \n";
             waitForUser();
             return Screen::LOGIN;
         }
@@ -85,9 +84,7 @@ Screen Login::loginAccount()
         // If it finds a row -> (SQLITE_ROW)
         // If not -> SQLITE_DONE
         if (sqlite3_step(stmt) == SQLITE_ROW)
-        {
             loginSucess = true;
-        }
 
         // cleanup (Very important to cleanup)
         sqlite3_finalize(stmt);
@@ -125,4 +122,41 @@ Screen Login::loginAccount()
 
     waitForUser();
     return Screen::LOGIN;
+}
+
+// check input validation
+Screen Login::inputValidation(const string &message, const Screen &screen)
+{
+    if (cin.fail())
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid input, please select " << message << " numerics only.\n";
+        waitForUser();
+        return screen;
+    }
+    return Screen::ACCOUNT_MENU;
+}
+
+bool Login::pinValidation(const string &pinToCheck)
+{
+    if (pinToCheck.length() != 4)
+    {
+        cout << "Invalid PIN format, Please enter 4 digits only.\n";
+        waitForUser();
+        return false;
+    }
+
+    // check all digits
+    for (char c : pinToCheck)
+    {
+        if (!isdigit(c))
+        {
+            cout << "Invalid PIN format, Please enter digits only.\n";
+            waitForUser();
+            return false;
+        }
+    }
+
+    return true;
 }

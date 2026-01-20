@@ -161,3 +161,13 @@ bool Login::pinValidation(const string &pinToCheck)
 
     return true;
 }
+
+string Login::getUserName() const
+{
+    return userName;
+}
+
+string Login::getPIN() const
+{
+    return pin;
+}

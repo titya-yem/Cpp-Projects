@@ -14,6 +14,9 @@ public:
     Screen inputValidation(const string &message, const Screen &screen);
     bool pinValidation(const string &pinToCheck);
 
+    string getUserName() const;
+    string getPIN() const;
+
 private:
     string userName;
     string pin;

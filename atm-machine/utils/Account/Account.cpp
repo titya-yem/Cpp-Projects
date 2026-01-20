@@ -66,7 +66,9 @@ Screen Account::accountMenu()
         db.close();
 
         if (loginSuccess)
-            accountData(data);
+        {
+            return accountData(data);
+        }
         else
         {
             cout << "Invalid username or PIN\n";
@@ -108,33 +110,33 @@ Screen Account::accountMenu()
 
 Screen Account::accountData(accountInformation &data)
 {
+    cout << "================================================\n"
+         << "|              Account Information             |\n"
+         << "================================================\n";
+    cout << "\tYour Account ID: " << ((data.id > 0) ? to_string(data.id) : "___") << endl;
+    cout << "\tYour username: " << ((data.userName.length() > 0) ? data.userName : "___") << endl;
+    cout << "\tYour PIN: " << ((data.pin.length() == 4) ? data.pin : "___") << endl;
+    cout << "\tBalance in USD: " << data.balanceUSD << " $" << endl;
+    cout << "\tBalance in KHR: " << data.balanceKHR << " reil" << endl;
+    cout << "================================================\n";
+    cout << "\t1) Go back\n";
+    cout << "\t2) Exit \n";
+
     cin >> accountInformationOption;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     switch (accountInformationOption)
     {
     case 1:
-        cout << "================================================\n"
-             << "|              Account Information             |\n"
-             << "================================================\n\n";
-        cout << "\tYour Account ID: " << ((data.id > 0) ? to_string(data.id) : "___") << endl;
-        cout << "\tYour username: " << ((data.userName.length() > 0) ? data.userName : "___") << endl;
-        cout << "\tYour PIN: " << ((data.pin.length() == 4) ? data.pin : "___") << endl;
-        cout << "\tBalance in USD: " << data.balanceUSD << " $" << endl;
-        cout << "\tBalance in KHR: " << data.balanceKHR << " reil" << endl;
-        cout << "\tGo back to Main Menu\n";
-        cout << "\tExit \n";
-
+        cout << "Go back to Account Menu\n";
+        waitForUser();
+        return Screen::ACCOUNT_MENU;
         break;
     case 2:
-        cout << "Go back to Main Menu";
-        waitForUser();
-        return Screen::MAIN_MENU;
-        break;
-    case 3:
         cout << "Thank you for using Le Fang ATM. Goodbye!\n";
         exit(0);
         break;
     default:
-        cout << "Please Select options 1-3 only.\n";
+        cout << "Please Select options 1-2 only.\n";
         waitForUser();
         break;
     }

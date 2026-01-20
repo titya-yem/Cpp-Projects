@@ -62,8 +62,11 @@ int main()
 
         // If user pressed 1 will go to login screen
         case Screen::LOGIN:
+        {
             currentScreen = login.loginMenu();
+            account.setCurrentUser(login.getUserName(), login.getPIN());
             break;
+        }
 
         case Screen::ACCOUNT_MENU:
             currentScreen = account.accountMenu();

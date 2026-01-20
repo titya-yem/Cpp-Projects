@@ -7,12 +7,12 @@ Screen Payment::paymentMenu()
 {
     system("cls");
     // will user inheritance when checking the same as function of each of them
-    cout << "==============================================\n";
+    cout << "=============================================\n";
     cout << "|                   Payment                  |\n";
-    cout << "==============================================\n\n";
-    cout << "    Please select your options for payment \n";
+    cout << "=============================================\n\n";
+    cout << "   Please select your options for payment \n";
     cout << " 1) Payment in USD" << "\t2) Payment in KHR \n"
-         << "\t3) Go back" << "\t6) Exit\n";
+         << "3) Go back" << "\t\t4) Exit\n";
     cout << "\nEnter your choice: ";
 
     cin >> paymentOption;

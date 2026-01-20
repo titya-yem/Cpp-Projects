@@ -43,7 +43,7 @@ Screen Login::loginMenu()
         // validate pin
         if (!pinValidation(pin))
         {
-            cout << "Invalid PIN \n";
+            cout << "Invalid PIN";
             waitForUser();
             return Screen::LOGIN;
         }
@@ -95,6 +95,7 @@ Screen Login::loginMenu()
         {
             cout << "Login successful. \n";
             waitForUser();
+            setCurrentUser(userName, pin);
             return Screen::ACCOUNT_MENU;
         }
         else

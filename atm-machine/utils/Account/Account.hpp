@@ -20,10 +20,12 @@ public:
     Screen accountMenu();
     Screen accountData(accountInformation &data);
 
+    void setCurrentUser(const string &userName, const string &pin);
     void waitForUser();
 
 private:
-    short menuOption;
+    short accountOption;
+    short accountInformationOption;
     string userName;
     string pin;
 };

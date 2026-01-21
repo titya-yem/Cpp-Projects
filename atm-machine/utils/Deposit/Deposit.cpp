@@ -26,13 +26,14 @@ Screen Deposit::depositMenu()
         cout << "===============================================\n"
              << "|                 Deposit Menu                |\n"
              << "===============================================\n";
-        cout << "NOTE: if amount not entered or 0, it will not be added.\n\n";
+        cout << "NOTE: if amount not entered or 0.\n"
+             << "      It will not be added.\n\n ";
 
-        cout << "\tUSD amount: ";
+        cout << "\tDeposit USD amount: ";
         cin >> depositUSD;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        cout << "\tKHR amount: ";
+        cout << "\tDeposit KHR amount: ";
         cin >> depositKHR;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -75,14 +76,6 @@ Screen Deposit::depositMenu()
 
         sqlite3_finalize(stmt);
 
-        // If both amounts are zero, skip deposit
-        if (depositUSD <= 0 && depositKHR <= 0)
-        {
-            cout << "No deposit entered. Returning to Deposit Menu.\n";
-            waitForUser();
-            return Screen::Deposit_Menu;
-        }
-
         // Calculate new balances
         double newUSD = currentUSD + (depositUSD > 0 ? depositUSD : 0);
         double newKHR = currentKHR + (depositKHR > 0 ? depositKHR : 0);
@@ -111,8 +104,11 @@ Screen Deposit::depositMenu()
 
         sqlite3_finalize(stmt);
 
+        // update currentUSD and KHR = newUSD and KHR after calcuated
+        currentUSD = newUSD;
+        currentKHR = newKHR;
         // Show success screen
-        return showDepositSuccessful(newUSD, newKHR);
+        return showDepositSuccessful();
     }
 
     case 2:
@@ -130,17 +126,20 @@ Screen Deposit::depositMenu()
     }
 }
 
-Screen Deposit::showDepositSuccessful(const double &usd, const double &khr)
+Screen Deposit::showDepositSuccessful()
 {
     system("cls");
     cout << "===============================================\n"
          << "|              Deposit successful             |\n"
          << "===============================================\n";
-    cout << "\tNew USD Balance: " << usd << " $\n";
-    cout << "\tNew KHR Balance: " << khr << " reil\n";
+    cout << "\tTotal USD Balance: " << currentUSD << " $\n";
+    cout << "\tTotal KHR Balance: " << currentKHR << " reil\n\n";
+
+    cout << "\tDeposit USD Balance: " << depositUSD << " $\n";
+    cout << "\tDeposit KHR Balance: " << depositKHR << " reil\n";
     cout << "===============================================\n";
     cout << "\t1) Go back " << "\t 2) Exit\n";
-    cout << "Enter your choice: ";
+    cout << "\tEnter your choice: ";
 
     cin >> depositSuccessfulOption;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -148,6 +147,8 @@ Screen Deposit::showDepositSuccessful(const double &usd, const double &khr)
     switch (depositSuccessfulOption)
     {
     case 1:
+        cout << "Go back to Account Menu. \n";
+        waitForUser();
         return Screen::ACCOUNT_Menu;
 
     case 2:

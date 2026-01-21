@@ -9,7 +9,7 @@ class Deposit : public Account
 public:
     Screen depositMenu();
 
-    Screen showDepositSuccessful(const double &usd, const double &khr);
+    Screen showDepositSuccessful();
 
 private:
     short depositOption;

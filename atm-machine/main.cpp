@@ -64,6 +64,8 @@ int main()
         case Screen::LOGIN:
         {
             currentScreen = login.loginMenu();
+            // using account's method (setCurrentUser) to get values
+            // get userName & PIN from login (getters)
             account.setCurrentUser(login.getUserName(), login.getPIN());
             break;
         }
@@ -84,7 +86,8 @@ int main()
         // If user pressed 3 will go to Exit screen
         case Screen::EXIT:
             cout << "Thank you for using Le Fang ATM. Goodbye !\n";
-            return 0;
+            exit(0);
         }
     }
+    return 0;
 }

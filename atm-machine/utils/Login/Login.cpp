@@ -10,7 +10,6 @@ using namespace std;
 Screen Login::loginMenu()
 {
     system("cls");
-    // Allow user to select card type and enter PIN again and again
     cout << "===============================================\n";
     cout << "|            Welcome to Le Fang ATM           |\n";
     cout << "===============================================\n\n";
@@ -42,11 +41,7 @@ Screen Login::loginMenu()
 
         // validate pin
         if (!pinValidation(pin))
-        {
-            cout << "Invalid PIN";
-            waitForUser();
             return Screen::LOGIN;
-        }
 
         // open database
         Database db;

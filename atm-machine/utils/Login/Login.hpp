@@ -14,6 +14,7 @@ public:
     Screen inputValidation(const string &message, const Screen &screen);
     bool pinValidation(const string &pinToCheck);
 
+    // return userName and PIN (so setCurrentUser can get them)
     string getUserName() const;
     string getPIN() const;
 

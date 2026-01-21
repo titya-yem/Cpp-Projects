@@ -4,7 +4,7 @@
 #include "../../Screen/Screen.hpp"
 #include "../Account/Account.hpp"
 
-class Transaction : public Account
+class Transfer : public Account
 {
 public:
     Screen transferMenu();

@@ -10,8 +10,8 @@ Screen Account::accountMenu()
     system("cls");
     cout << "===============================================\n";
     cout << "|                 Account Menu                |\n";
-    cout << "===============================================\n\n";
-    cout << "      Please select your prefer options \n";
+    cout << "===============================================\n";
+    cout << "      Please select your prefer options \n\n";
     cout << " 1) Account" << "\t2) Deposit" << "\t3) Transfer\n"
          << " 4) Payment" << "\t5) Receipt" << "\t6) Exit\n";
     cout << "\nEnter your choice: ";
@@ -118,15 +118,14 @@ Screen Account::showAccountData(accountInformation &data)
     cout << "================================================\n"
          << "|              Account Information             |\n"
          << "================================================\n";
-    cout << "\tAccount ID: " << ((data.id > 0) ? to_string(data.id) : "___") << endl;
-    cout << "\tusername: " << ((data.userName.length() > 0) ? data.userName : "___") << endl;
-    cout << "\tPIN: " << ((data.pin.length() == 4) ? data.pin : "___") << endl;
-    cout << "\tBalance in USD: " << data.balanceUSD << " $" << endl;
-    cout << "\tBalance in KHR: " << data.balanceKHR << " reil" << endl;
+    cout << "\t   Account ID: " << ((data.id > 0) ? to_string(data.id) : "___") << endl;
+    cout << "\t   username: " << ((data.userName.length() > 0) ? data.userName : "___") << endl;
+    cout << "\t   PIN: " << ((data.pin.length() == 4) ? data.pin : "___") << endl;
+    cout << "\t   Balance in USD: " << data.balanceUSD << " $" << endl;
+    cout << "\t   Balance in KHR: " << data.balanceKHR << " reil" << endl;
     cout << "================================================\n";
-    cout << "\t1) Go back"
-         << "\t2) Exit \n";
-    cout << "\tPlease select your option: ";
+    cout << "   \t1) Go back" << "\t2) Exit \n";
+    cout << "       Please select your option: ";
 
     cin >> accountInformationOption;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -138,6 +137,7 @@ Screen Account::showAccountData(accountInformation &data)
         return Screen::ACCOUNT_Menu;
         break;
     case 2:
+        system("cls");
         cout << "Thank you for using Le Fang ATM. Goodbye!\n";
         exit(0);
         break;
@@ -165,4 +165,14 @@ void Account::waitForUser()
     // for waiting user such as invalid or retry
     cout << "Press Enter To Continue....";
     cin.get();
+}
+
+const string &Account::getUserName() const
+{
+    return userName;
+}
+
+const string &Account::getPIN() const
+{
+    return pin;
 }

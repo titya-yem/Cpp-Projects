@@ -6,6 +6,8 @@
 #include "utils/Payment/Payment.hpp"
 #include "utils/CreateAccount/CreateAccount.hpp"
 #include "utils/Deposit/Deposit.hpp"
+#include "utils/Transfer/Transfer.hpp"
+#include "utils/Receipt/Receipt.hpp"
 
 using namespace std;
 
@@ -16,9 +18,12 @@ int main()
 
     Login login;
     CreateAccount createAccount;
+
     Account account;
-    Payment Payment;
     Deposit deposit;
+    Transfer transfer;
+    Payment Payment;
+    Receipt receipt;
 
     while (true)
     {
@@ -68,7 +73,11 @@ int main()
             currentScreen = login.loginMenu();
             // using account's method (setCurrentUser) to get values
             // get userName & PIN from login (getters)
-            account.setCurrentUser(login.getUserName(), login.getPIN());
+            if (currentScreen == Screen::ACCOUNT_Menu)
+            {
+                account.setCurrentUser(login.getUserName(), login.getPIN());
+                deposit.setCurrentUser(login.getUserName(), login.getPIN());
+            }
             break;
         }
 
@@ -77,12 +86,20 @@ int main()
             currentScreen = account.accountMenu();
             break;
 
+        case Screen::Deposit_Menu:
+            currentScreen = deposit.depositMenu();
+            break;
+
+        case Screen::Transfer_Menu:
+            currentScreen = transfer.transferMenu();
+            break;
+
         case Screen::Payment_Menu:
             currentScreen = Payment.paymentMenu();
             break;
 
-        case Screen::Deposit_Menu:
-            currentScreen = deposit.depositMenu();
+        case Screen::Receipt_Menu:
+            currentScreen = receipt.receiptMenu();
             break;
         // End of display screen
 

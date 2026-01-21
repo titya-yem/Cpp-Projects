@@ -24,7 +24,12 @@ public:
     void setCurrentUser(const string &userName, const string &pin);
     void waitForUser();
 
-private:
+    const string &getUserName() const;
+    const string &getPIN() const;
+
+    // use protected because it is accessible in class such as
+    // parent, and childs classes
+protected:
     short accountOption;
     short accountInformationOption;
     string userName; // store Logged-in userName

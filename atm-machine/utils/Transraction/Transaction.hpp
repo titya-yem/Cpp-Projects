@@ -1,8 +1,0 @@
-#ifndef UTILS_TRANSACTION_TRANSACTION_HPP
-#define UTILS_TRANSACTION_TRANSACTION_HPP
-
-class Transaction
-{
-};
-
-#endif

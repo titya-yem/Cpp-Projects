@@ -12,7 +12,7 @@ Screen Account::accountMenu()
     cout << "|                 Account Menu                |\n";
     cout << "===============================================\n\n";
     cout << "      Please select your prefer options \n";
-    cout << " 1) Account" << "\t2) Balance" << "\t3) Transaction\n"
+    cout << " 1) Account" << "\t2) Deposit" << "\t3) Transfer\n"
          << " 4) Payment" << "\t5) Receipt" << "\t6) Exit\n";
     cout << "\nEnter your choice: ";
 
@@ -29,7 +29,7 @@ Screen Account::accountMenu()
         {
             cout << "Database error. \n";
             waitForUser();
-            return Screen::ACCOUNT_MENU;
+            return Screen::ACCOUNT_Menu;
         }
 
         // SQL with placeholders to query data from atm.db
@@ -43,7 +43,7 @@ Screen Account::accountMenu()
         if (sqlite3_prepare_v2(conn, sql, -1, &stmt, nullptr) != SQLITE_OK)
         {
             cout << "Prepare failed\n";
-            return Screen::ACCOUNT_MENU;
+            return Screen::ACCOUNT_Menu;
         }
 
         // Bind values safely (prevents SQL injection)
@@ -72,31 +72,31 @@ Screen Account::accountMenu()
 
         if (loginSuccess)
         {
-            return accountData(data);
+            return showAccountData(data);
         }
         else
         {
             cout << "Invalid username or PIN\n";
             waitForUser();
-            return Screen::ACCOUNT_MENU;
+            return Screen::ACCOUNT_Menu;
         }
 
         break;
     }
     case 2:
-        return Screen::Balance_MENU;
+        return Screen::Deposit_Menu;
         break;
 
     case 3:
-        return Screen::Transaction_MENU;
+        return Screen::Transfer_Menu;
         break;
 
     case 4:
-        return Screen::Payment_MENU;
+        return Screen::Payment_Menu;
         break;
 
     case 5:
-        return Screen::Receipt_MENU;
+        return Screen::Receipt_Menu;
         break;
 
     case 6:
@@ -106,14 +106,14 @@ Screen Account::accountMenu()
     default:
         cout << "Please Select options 1-6 only.\n";
         waitForUser();
-        return Screen::ACCOUNT_MENU;
+        return Screen::ACCOUNT_Menu;
     }
 
     waitForUser();
-    return Screen::ACCOUNT_MENU;
+    return Screen::ACCOUNT_Menu;
 }
 
-Screen Account::accountData(accountInformation &data)
+Screen Account::showAccountData(accountInformation &data)
 {
     cout << "================================================\n"
          << "|              Account Information             |\n"
@@ -128,15 +128,14 @@ Screen Account::accountData(accountInformation &data)
          << "\t2) Exit \n";
     cout << "\tPlease select your option: ";
 
-    cin >>
-        accountInformationOption;
+    cin >> accountInformationOption;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     switch (accountInformationOption)
     {
     case 1:
         cout << "Go back to Account Menu\n";
         waitForUser();
-        return Screen::ACCOUNT_MENU;
+        return Screen::ACCOUNT_Menu;
         break;
     case 2:
         cout << "Thank you for using Le Fang ATM. Goodbye!\n";
@@ -149,7 +148,7 @@ Screen Account::accountData(accountInformation &data)
     }
 
     waitForUser();
-    return Screen::ACCOUNT_MENU;
+    return Screen::ACCOUNT_Menu;
 }
 
 void Account::setCurrentUser(const string &userName, const string &pin)

@@ -3,14 +3,14 @@
 
 enum class Screen
 {
-    MAIN_MENU,
-    CREATE_ACCOUNT_MENU,
-    ACCOUNT_MENU,
+    MAIN_Menu,
+    CREATE_ACCOUNT_Menu,
+    ACCOUNT_Menu,
     LOGIN,
-    Balance_MENU,
-    Transaction_MENU,
-    Payment_MENU,
-    Receipt_MENU,
+    Deposit_Menu,
+    Transfer_Menu,
+    Payment_Menu,
+    Receipt_Menu,
     EXIT,
 };
 

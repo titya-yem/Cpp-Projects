@@ -1,20 +1,18 @@
-#include "Payment.hpp"
+#include "Transfer.hpp"
 
-using namespace std;
-
-Screen Payment::paymentMenu()
+Screen Transaction::transferMenu()
 {
     system("cls");
     cout << "=============================================\n";
-    cout << "|                   Payment                  |\n";
+    cout << "|                  Transfer                 |\n";
     cout << "=============================================\n\n";
-    cout << "   Please select your options for payment \n";
+    cout << "   Please select your options for Transfer \n";
     cout << " 1) Payment in USD" << "\t2) Payment in KHR \n"
          << " 3) Go back" << "\t\t4) Exit\n";
     cout << "\nEnter your choice: ";
 
-    cin >> paymentOption;
-    switch (paymentOption)
+    cin >> transferOption;
+    switch (transferOption)
     {
     case 1:
         cout << "Payment in USD\n";
@@ -36,10 +34,10 @@ Screen Payment::paymentMenu()
     default:
         cout << "Please Select options 1-4 only.\n";
         waitForUser();
-        return Screen::Payment_Menu;
+        return Screen::Transfer_Menu;
         break;
     }
 
     waitForUser();
-    return Screen::Payment_Menu;
+    return Screen::Transfer_Menu;
 }

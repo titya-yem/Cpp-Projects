@@ -91,7 +91,7 @@ Screen Login::loginMenu()
             cout << "Login successful. \n";
             waitForUser();
             setCurrentUser(userName, pin);
-            return Screen::ACCOUNT_MENU;
+            return Screen::ACCOUNT_Menu;
         }
         else
         {
@@ -103,7 +103,7 @@ Screen Login::loginMenu()
     case 2:
         cout << "Going back to Main Menu. \n";
         waitForUser();
-        return Screen::MAIN_MENU;
+        return Screen::MAIN_Menu;
 
     case 3:
         system("cls");
@@ -131,7 +131,7 @@ Screen Login::inputValidation(const string &message, const Screen &screen)
         waitForUser();
         return screen;
     }
-    return Screen::ACCOUNT_MENU;
+    return Screen::ACCOUNT_Menu;
 }
 
 bool Login::pinValidation(const string &pinToCheck)

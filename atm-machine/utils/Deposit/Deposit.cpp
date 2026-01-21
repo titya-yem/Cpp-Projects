@@ -1,27 +1,27 @@
-#include "Payment.hpp"
+#include "Deposit.hpp"
 
 using namespace std;
 
-Screen Payment::paymentMenu()
+Screen Deposit::depositMenu()
 {
     system("cls");
-    cout << "=============================================\n";
-    cout << "|                   Payment                  |\n";
-    cout << "=============================================\n\n";
-    cout << "   Please select your options for payment \n";
-    cout << " 1) Payment in USD" << "\t2) Payment in KHR \n"
+    cout << "==============================================\n";
+    cout << "|                   Deposit                  |\n";
+    cout << "==============================================\n\n";
+    cout << "   Please select your options for deposit \n";
+    cout << " 1) Deposit in USD" << "\t2) Deposit in KHR \n"
          << " 3) Go back" << "\t\t4) Exit\n";
     cout << "\nEnter your choice: ";
 
-    cin >> paymentOption;
-    switch (paymentOption)
+    cin >> depositOption;
+    switch (depositOption)
     {
     case 1:
-        cout << "Payment in USD\n";
+        cout << "Deposit in USD\n";
         waitForUser();
         break;
     case 2:
-        cout << "Payment in KHR\n";
+        cout << "Deposit in KHR\n";
         waitForUser();
         break;
     case 3:
@@ -36,10 +36,10 @@ Screen Payment::paymentMenu()
     default:
         cout << "Please Select options 1-4 only.\n";
         waitForUser();
-        return Screen::Payment_Menu;
+        return Screen::Deposit_Menu;
         break;
     }
 
     waitForUser();
-    return Screen::Payment_Menu;
+    return Screen::Deposit_Menu;
 }

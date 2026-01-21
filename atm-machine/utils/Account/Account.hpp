@@ -18,7 +18,7 @@ class Account
 {
 public:
     Screen accountMenu();
-    Screen accountData(accountInformation &data);
+    Screen showAccountData(accountInformation &data);
 
     // store login user (userName & pin)
     void setCurrentUser(const string &userName, const string &pin);

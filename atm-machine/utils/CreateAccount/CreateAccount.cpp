@@ -47,7 +47,7 @@ Screen CreateAccount::createAccountMenu()
         {
             cout << "Invalid PIN, Must be exactly 4 digits.\n";
             waitForUser();
-            return Screen::CREATE_ACCOUNT_MENU;
+            return Screen::CREATE_ACCOUNT_Menu;
         }
 
         // Insert into DB
@@ -56,7 +56,7 @@ Screen CreateAccount::createAccountMenu()
             cout << "Account creation failed. User name may exist.\n";
             waitForUser();
             // if user name exist or fail it will back to create account menu
-            return Screen::CREATE_ACCOUNT_MENU;
+            return Screen::CREATE_ACCOUNT_Menu;
         }
 
         // Direct to Login screen after successfully created
@@ -67,7 +67,7 @@ Screen CreateAccount::createAccountMenu()
     case 2:
         cout << "Go back to main menu \n";
         waitForUser();
-        return Screen::MAIN_MENU;
+        return Screen::MAIN_Menu;
 
     case 3:
         system("cls");
@@ -77,11 +77,11 @@ Screen CreateAccount::createAccountMenu()
     default:
         cout << "Please Select options 1-3 only.\n";
         waitForUser();
-        return Screen::CREATE_ACCOUNT_MENU;
+        return Screen::CREATE_ACCOUNT_Menu;
     };
 
     waitForUser();
-    return Screen::CREATE_ACCOUNT_MENU;
+    return Screen::CREATE_ACCOUNT_Menu;
 }
 
 // validate PIN (must be exactly 4 digits)

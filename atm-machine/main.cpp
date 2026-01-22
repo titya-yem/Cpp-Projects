@@ -22,7 +22,7 @@ int main()
     Account account;
     Deposit deposit;
     Transfer transfer;
-    Payment Payment;
+    Payment payment;
     Receipt receipt;
 
     while (true)
@@ -77,6 +77,7 @@ int main()
             {
                 account.setCurrentUser(login.getUserName(), login.getPIN());
                 deposit.setCurrentUser(login.getUserName(), login.getPIN());
+                payment.setCurrentUser(login.getUserName(), login.getPIN());
             }
             break;
         }
@@ -95,7 +96,7 @@ int main()
             break;
 
         case Screen::Payment_Menu:
-            currentScreen = Payment.paymentMenu();
+            currentScreen = payment.paymentMenu();
             break;
 
         case Screen::Receipt_Menu:

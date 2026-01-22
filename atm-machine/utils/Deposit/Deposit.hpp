@@ -20,6 +20,9 @@ private:
 
     double currentUSD = 0.00;
     double currentKHR = 0.00;
+
+    double newDepositUSD;
+    double newDepositKHR;
 };
 
 #endif

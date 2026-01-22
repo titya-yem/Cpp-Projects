@@ -23,9 +23,9 @@ Screen Deposit::depositMenu()
     case 1:
     {
         system("cls");
-        cout << "===============================================\n"
-             << "|                 Deposit Menu                |\n"
-             << "===============================================\n";
+        cout << "===========================================\n"
+             << "|                 Deposit                 |\n"
+             << "===========================================\n";
         cout << "NOTE: if amount not entered or 0.\n"
              << "      It will not be added.\n\n ";
 
@@ -36,6 +36,20 @@ Screen Deposit::depositMenu()
         cout << "\tDeposit KHR amount: ";
         cin >> depositKHR;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        if (depositUSD < 0 || depositKHR < 0)
+        {
+            cout << "Invalid deposit amount.\n";
+            waitForUser();
+            return Screen::Deposit_Menu;
+        }
+
+        if (depositUSD == 0 && depositKHR == 0)
+        {
+            cout << "No deposit amount entered.\n";
+            waitForUser();
+            return Screen::Deposit_Menu;
+        }
 
         // Open DB
         Database db;
@@ -49,10 +63,13 @@ Screen Deposit::depositMenu()
         sqlite3 *conn = db.getDB();
         sqlite3_stmt *stmt;
 
+        sqlite3_exec(conn, "BEGIN TRANSACTION;", nullptr, nullptr, nullptr);
+
         // Fetch current balances
         const char *sql = "SELECT BalanceUSD, BalanceKHR FROM Account WHERE username = ? AND pin = ?;";
         if (sqlite3_prepare_v2(conn, sql, -1, &stmt, nullptr) != SQLITE_OK)
         {
+            sqlite3_exec(conn, "ROLLBACK;", nullptr, nullptr, nullptr);
             cout << "Failed to prepare SELECT statement.\n";
             waitForUser();
             return Screen::Deposit_Menu;
@@ -68,6 +85,7 @@ Screen Deposit::depositMenu()
         }
         else
         {
+            sqlite3_exec(conn, "ROLLBACK;", nullptr, nullptr, nullptr);
             cout << "Account not found.\n";
             sqlite3_finalize(stmt);
             waitForUser();
@@ -77,25 +95,27 @@ Screen Deposit::depositMenu()
         sqlite3_finalize(stmt);
 
         // Calculate new balances
-        double newUSD = currentUSD + (depositUSD > 0 ? depositUSD : 0);
-        double newKHR = currentKHR + (depositKHR > 0 ? depositKHR : 0);
+        newDepositUSD = currentUSD + (depositUSD > 0 ? depositUSD : 0);
+        newDepositKHR = currentKHR + (depositKHR > 0 ? depositKHR : 0);
 
         // Update DB
         const char *updateSQL = "UPDATE Account SET BalanceUSD = ?, BalanceKHR = ? WHERE username = ? AND pin = ?;";
         if (sqlite3_prepare_v2(conn, updateSQL, -1, &stmt, nullptr) != SQLITE_OK)
         {
+            sqlite3_exec(conn, "ROLLBACK;", nullptr, nullptr, nullptr);
             cout << "Failed to prepare UPDATE statement.\n";
             waitForUser();
             return Screen::Deposit_Menu;
         }
 
-        sqlite3_bind_double(stmt, 1, newUSD);
-        sqlite3_bind_double(stmt, 2, newKHR);
+        sqlite3_bind_double(stmt, 1, newDepositUSD);
+        sqlite3_bind_double(stmt, 2, newDepositKHR);
         sqlite3_bind_text(stmt, 3, userName.c_str(), -1, SQLITE_STATIC);
         sqlite3_bind_text(stmt, 4, pin.c_str(), -1, SQLITE_STATIC);
 
         if (sqlite3_step(stmt) != SQLITE_DONE)
         {
+            sqlite3_exec(conn, "ROLLBACK;", nullptr, nullptr, nullptr);
             cout << "Deposit failed.\n";
             sqlite3_finalize(stmt);
             waitForUser();
@@ -103,10 +123,12 @@ Screen Deposit::depositMenu()
         }
 
         sqlite3_finalize(stmt);
+        sqlite3_exec(conn, "COMMIT;", nullptr, nullptr, nullptr);
+        db.close();
 
         // update currentUSD and KHR = newUSD and KHR after calcuated
-        currentUSD = newUSD;
-        currentKHR = newKHR;
+        currentUSD = newDepositUSD;
+        currentKHR = newDepositKHR;
         // Show success screen
         return showDepositSuccessful();
     }

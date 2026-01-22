@@ -28,7 +28,7 @@ public:
     const string &getPIN() const;
 
     // use protected because it is accessible in class such as
-    // parent, and childs classes
+    // parent and childs classes
 protected:
     short accountOption;
     short accountInformationOption;

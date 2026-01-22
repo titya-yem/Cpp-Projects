@@ -29,8 +29,8 @@ bool Database::open(const string &dbName)
     string createTable =
         "CREATE TABLE IF NOT EXISTS Account ("
         "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-        "username TEXT UNIQUE,"
-        "pin TEXT,"
+        "username TEXT UNIQUE NOT NULL,"
+        "pin TEXT NOT NULL,"
         "BalanceUSD REAL DEFAULT 0,"
         "BalanceKHR REAL DEFAULT 0);";
 

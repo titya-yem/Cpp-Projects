@@ -25,7 +25,7 @@ Screen Payment::paymentMenu()
              << "|                  Payment                 |\n"
              << "============================================\n";
         cout << "NOTE: if amount not entered or 0.\n"
-             << "      It will not be added.\n\n ";
+             << "      It will not be added.\n\n";
 
         cout << "Payment USD amount: ";
         cin >> paymentInUSD;
@@ -61,7 +61,7 @@ Screen Payment::paymentMenu()
             "SELECT BalanceUSD, BalanceKHR FROM Account "
             "WHERE username = ? AND pin = ?;";
 
-        // AFTER fetching balance from DB
+        // after fetching balance
         if (sqlite3_prepare_v2(conn, sql, -1, &stmt, nullptr) != SQLITE_OK)
         {
             sqlite3_exec(conn, "ROLLBACK;", nullptr, nullptr, nullptr);

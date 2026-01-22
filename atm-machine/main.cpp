@@ -78,6 +78,7 @@ int main()
                 account.setCurrentUser(login.getUserName(), login.getPIN());
                 deposit.setCurrentUser(login.getUserName(), login.getPIN());
                 payment.setCurrentUser(login.getUserName(), login.getPIN());
+                transfer.setCurrentUser(login.getUserName(), login.getPIN());
             }
             break;
         }

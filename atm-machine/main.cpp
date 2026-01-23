@@ -20,10 +20,11 @@ int main()
     CreateAccount createAccount;
 
     Account account;
-    Deposit deposit;
-    Transfer transfer;
-    Payment payment;
     Receipt receipt;
+
+    Deposit deposit(&receipt);
+    Transfer transfer(&receipt);
+    Payment payment(&receipt);
 
     while (true)
     {

@@ -3,12 +3,14 @@
 #include <iostream>
 #include "../../Screen/Screen.hpp"
 #include "../Account/Account.hpp"
+#include "../Receipt/Receipt.hpp"
 
 class Deposit : public Account
 {
 public:
-    Screen depositMenu();
+    Deposit(Receipt *receipt);
 
+    Screen depositMenu();
     Screen showDepositSuccessful();
 
 private:
@@ -23,6 +25,8 @@ private:
 
     double newDepositUSD;
     double newDepositKHR;
+
+    Receipt *receipt;
 };
 
 #endif

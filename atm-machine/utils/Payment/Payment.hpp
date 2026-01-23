@@ -2,12 +2,15 @@
 #define UTILS_PAYMENT_PAYMENT_HPP
 #include <iostream>
 #include "../../Screen/Screen.hpp"
-#include "../Account/Account.hpp"
 #include "../../config/Database.hpp"
+#include "../Account/Account.hpp"
+#include "../Receipt/Receipt.hpp"
 
 class Payment : public Account
 {
 public:
+    Payment(Receipt *receipt);
+
     Screen paymentMenu();
     Screen showPaymentSuccessful();
 
@@ -23,6 +26,8 @@ private:
 
     double newPaymentUSD;
     double newPaymentKHR;
+
+    Receipt *receipt;
 };
 
 #endif

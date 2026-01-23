@@ -129,6 +129,10 @@ Screen Deposit::depositMenu()
         // update currentUSD and KHR = newUSD and KHR after calcuated
         currentUSD = newDepositUSD;
         currentKHR = newDepositKHR;
+
+        // Add receipt record
+        receipt->action("Deposit", currentUSD, currentKHR);
+
         // Show success screen
         return showDepositSuccessful();
     }
@@ -183,4 +187,9 @@ Screen Deposit::showDepositSuccessful()
         waitForUser();
         return Screen::Deposit_Menu;
     }
+}
+
+Deposit::Deposit(Receipt *receipt)
+{
+    this->receipt = receipt;
 }

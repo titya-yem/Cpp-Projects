@@ -136,6 +136,9 @@ Screen Payment::paymentMenu()
         currentBalanceInUSD = newPaymentUSD;
         currentBalanceInKHR = newPaymentKHR;
 
+        // add action to receipt
+        receipt->action("Payment", currentBalanceInUSD, currentBalanceInKHR);
+
         return showPaymentSuccessful();
     }
     case 2:
@@ -194,4 +197,9 @@ Screen Payment::showPaymentSuccessful()
         waitForUser();
         return Screen::Deposit_Menu;
     }
+}
+
+Payment::Payment(Receipt *receipt)
+{
+    this->receipt = receipt;
 }

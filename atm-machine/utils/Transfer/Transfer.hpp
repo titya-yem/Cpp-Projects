@@ -2,12 +2,15 @@
 #define UTILS_TRANSFER_TRANSFER_HPP
 #include <iostream>
 #include "../../Screen/Screen.hpp"
-#include "../Account/Account.hpp"
 #include "../../config/Database.hpp"
+#include "../Account/Account.hpp"
+#include "../Receipt/Receipt.hpp"
 
 class Transfer : public Account
 {
 public:
+    Transfer(Receipt *receipt);
+
     Screen transferMenu();
     Screen showTransferSuccessful();
 
@@ -23,6 +26,8 @@ private:
 
     double newTransferUSD;
     double newTransferKHR;
+
+    Receipt *receipt;
 };
 
 #endif

@@ -134,6 +134,9 @@ Screen Transfer::transferMenu()
         currentBlanceInUSD = newTransferUSD;
         currentBlanceInKHR = newTransferKHR;
 
+        // Add receipt record
+        receipt->action("Transfer", currentBlanceInUSD, currentBlanceInKHR);
+
         return showTransferSuccessful();
 
         break;
@@ -194,4 +197,9 @@ Screen Transfer::showTransferSuccessful()
         waitForUser();
         return Screen::Deposit_Menu;
     }
+}
+
+Transfer::Transfer(Receipt *receipt)
+{
+    this->receipt = receipt;
 }

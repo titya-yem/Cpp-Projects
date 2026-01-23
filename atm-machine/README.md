@@ -73,8 +73,6 @@ It’s ideal for **junior developers** looking to showcase practical C++ skills.
 
 ---
 
----
-
 ## 📷 Demo
 
 **ATM login screen example:**

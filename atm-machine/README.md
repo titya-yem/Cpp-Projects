@@ -91,6 +91,12 @@ Do you have accounts or not ?
 
 Please select:
 
+```
+
+---
+
+```bash
+
 Account Menu example:
 
 ===============================================

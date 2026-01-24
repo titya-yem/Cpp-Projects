@@ -88,14 +88,11 @@ Do you have accounts or not ?
 3) Exit ATM
 
 Please select:
-
 ```
 
 ---
 
 ```bash
-
-Account Menu example:
 
 ===============================================
 |                 Account Menu                |
@@ -106,7 +103,6 @@ Please select your preferred option:
 4) Payment     5) Receipt      6) Exit
 
 Enter your choice:
-
 ```
 
 ---
@@ -132,8 +128,8 @@ Enter your choice:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/titya-yem/Cpp-Projects.git
-cd Cpp-Projects/atm-machine
+git clone https://github.com/titya-yem/ATM-Simulation.git
+cd .\ATM-Simulation\
 ```
 
 ### 2. Compile SQLite3 (C)

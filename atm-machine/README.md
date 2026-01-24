@@ -111,6 +111,22 @@ Enter your choice:
 
 ---
 
+```bash
+================================================
+|              Account Information             |
+================================================
+           Account ID: 1
+           username: Titya Yem
+           PIN: 1234
+           Balance in USD: 4000 $
+           Balance in KHR: 20000 reil
+================================================
+        1) Go back      2) Exit
+       Please select your option:
+```
+
+---
+
 ## 🚀 Getting Started
 
 ### 1. Clone the repository
